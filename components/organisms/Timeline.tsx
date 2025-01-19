@@ -30,7 +30,7 @@ const Timeline = () => {
             date={"20/01/2025"}
             title={"Pembukaan Pendaftaran"}
             description={
-              "Pendaftaran dibuka pada tanggal sampai 20 - 26 Januari 2025 pukul 23:59 WIB"
+              "Pendaftaran dibuka pada tanggal sampai 20 - 28 Januari 2025 pukul 23:59 WIB"
             }
           />
         </div>
