@@ -398,7 +398,7 @@ export default function PendaftaranForm() {
               {" "}
               <p className="text-lg text-slate-200">
                 Link postingan Instagram upload twibbon. Link :{" "}
-                <a href="https://twb.nz/twibbon-oprec-hmif-2025" className="text-sky-400">
+                <a href="https://bit.ly/4gZZCNr" className="text-sky-400">
                   Twibbon OPREC HMIF 2025
                 </a>
               </p>
