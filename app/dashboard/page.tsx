@@ -34,6 +34,13 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
+    toast({
+       title: "Pendafataran telah ditutup",
+     description:
+        "Mohon maaf pendaftaran OPREC HMIF UNSRI 2024 telah ditutup,terimakasih telah mendaftar,see u next year!!",
+     });
+     router.push("/");
+    /*
     const getCalonStaff = async () => {
       const calonStaff = await Promise.all([
         fetchCalonStaff(),
@@ -62,6 +69,7 @@ export default function Dashboard() {
       });
     };
     getCalonStaff();
+    */
   }, []);
 
   return (
