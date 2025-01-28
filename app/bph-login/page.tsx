@@ -60,7 +60,8 @@ export default function BPHLogin() {
         email,
         password
       );
-      router.push("/dashboard");
+      toast({ description: "Page Dashboard sedang dalam maintenance", variant: "destructive" });
+     // router.push("/dashboard");
       console.log(userCredentials);
     } catch (error) {
       if (error instanceof FirebaseError) {
