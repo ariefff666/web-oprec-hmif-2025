@@ -22,16 +22,6 @@ export default function TableDetail() {
       if (calonStaffId) {
         const response = await getCalonStaffById(calonStaffId);
         setCalonStaff(response);
-      }
-    };
-    getCalonStaff();
-  }, [calonStaffId]);
-
-  useEffect(() => {
-    const getCalonStaff = async () => {
-      if (calonStaffId) {
-        const response = await getCalonStaffById(calonStaffId);
-        setCalonStaff(response);
 
         if (response?.status === "Diterima") {
           setAccepted(true);

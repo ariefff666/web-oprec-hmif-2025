@@ -1,10 +1,26 @@
 "use client";
-
 import TableCalonStaff from "@/components/molecules/TableCalonStaff";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function DinasName() {
   const dinasName = usePathname().split("/")[2];
+  const [user, setUser] = useState({ email: "" });
+
+  const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser({ email: user.email || "" });
+      } else {
+        router.push("/");
+      }
+    });
+  }, [router]);
 
   return (
     <main className="flex items-center justify-center px-2 lg:px-10">

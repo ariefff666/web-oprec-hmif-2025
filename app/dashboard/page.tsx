@@ -1,18 +1,18 @@
 "use client";
-import DinasCard from "@/components/atoms/DinasCard";
-import { fetchCalonStaff } from "@/lib/api";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { FaUsers } from "react-icons/fa";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { toast } from "@/components/ui/use-toast";
+import DinasCard from "@/components/atoms/DinasCard";
+import { fetchCalonStaffDashboard, segmentCalonStaff } from "@/lib/api";
 
 export default function Dashboard() {
   const [user, setUser] = useState({ email: "" });
-  const [calonStaffLength, setCalonStaffLength] = useState<any>({
+  const [calonStaffLength, setCalonStaffLength] = useState({
     global: 0,
     accept: 0,
-    akademik: 101,
+    akademik: 0,
     administrasi: 0,
     kastrad: 0,
     kwu: 0,
@@ -26,50 +26,36 @@ export default function Dashboard() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser({ email: user.email ? user.email : "" });
+        setUser({ email: user.email || "" });
       } else {
         router.push("/");
       }
     });
-  }, []);
+  }, [router]);
 
   useEffect(() => {
-    toast({
-       title: "Pendafataran telah ditutup",
-     description:
-        "Mohon maaf pendaftaran OPREC HMIF UNSRI 2024 telah ditutup,terimakasih telah mendaftar,see u next year!!",
-     });
-     router.push("/");
-    /*
-    const getCalonStaff = async () => {
-      const calonStaff = await Promise.all([
-        fetchCalonStaff(),
-        fetchCalonStaff("akademik"),
-        fetchCalonStaff("administrasi"),
-        fetchCalonStaff("kastrad"),
-        fetchCalonStaff("kwu"),
-        fetchCalonStaff("kominfo"),
-        fetchCalonStaff("pmb"),
-        fetchCalonStaff("psdm"),
-        fetchCalonStaff("diterima"),
-      ]);
+    // toast({
+    //   title: "Dashboard sedang dalam maintenance",
+    //   description: "Mohon maaf page dashboard OPREC HMIF UNSRI 2024 sedang dalam maintenance. Mohon menunggu beberapa saat lagi.",
+    // });
+    // router.push("/");
 
-      console.log("Fetched data:", calonStaff);
-
-      setCalonStaffLength({
-        global: calonStaff[0]?.length || 0,
-        akademik: calonStaff[1]?.length || 0,
-        administrasi: calonStaff[2]?.length || 0,
-        kastrad: calonStaff[3]?.length || 0,
-        kwu: calonStaff[4]?.length || 0,
-        kominfo: calonStaff[5]?.length || 0,
-        pmb: calonStaff[6]?.length || 0,
-        psdm: calonStaff[7]?.length || 0,
-        accept: calonStaff[8]?.length || 0,
-      });
+    const getCalonStaffData = async () => {
+      try {
+        const calonStaff = await fetchCalonStaffDashboard();
+        const segmentedData = segmentCalonStaff(calonStaff);
+        setCalonStaffLength(segmentedData);
+      } catch (error) {
+        console.error("Error fetching calon staff:", error);
+        toast({
+          title: "Error",
+          description: "Gagal memuat data calon staff.",
+          variant: "destructive",
+        });
+      }
     };
-    getCalonStaff();
-    */
+
+    getCalonStaffData();
   }, []);
 
   return (

@@ -18,7 +18,7 @@ export default function TableCalonStaff() {
       if (dinasName) {
         const response = await fetchCalonStaff(dinasName);
         setCalonStaff(response);
-        setFilteredStaff(response); // Inisialisasi hasil pencarian
+        setFilteredStaff(response);
       }
     };
     getCalonStaff();
