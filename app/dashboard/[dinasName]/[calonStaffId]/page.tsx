@@ -1,7 +1,8 @@
+"use client";
 import TableDetail from "@/components/molecules/TableDetail";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 type Props = {};

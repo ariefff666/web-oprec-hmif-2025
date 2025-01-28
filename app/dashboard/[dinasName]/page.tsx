@@ -3,7 +3,7 @@ import TableCalonStaff from "@/components/molecules/TableCalonStaff";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function DinasName() {
