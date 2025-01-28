@@ -67,23 +67,27 @@ export const segmentCalonStaff = (calonStaff: CalonStaff[]) => {
   };
 
   return calonStaff.reduce((segments, staff) => {
-    // Increment global count
     segments.global += 1;
 
-    // Check if staff is accepted
     if (staff.status === "Diterima") {
       segments.accept += 1;
     }
 
-    // Handle divisions segmentation safely
-    staff.divisions.forEach((division) => {
-      if (division.includes("Akademik")) segments.akademik += 1;
-      if (division.includes("Administrasi")) segments.administrasi += 1;
-      if (division.includes("Kastrad")) segments.kastrad += 1;
-      if (division.includes("KWU")) segments.kwu += 1;
-      if (division.includes("KOMINFO")) segments.kominfo += 1;
-      if (division.includes("PMB")) segments.pmb += 1;
-      if (division.includes("PSDM")) segments.psdm += 1;
+    const uniqueDivisions = new Set(
+      staff.divisions.map((division) => {
+        const [dinas] = division.split(" - ");
+        return dinas.trim();
+      })
+    );
+
+    uniqueDivisions.forEach((dinas) => {
+      if (dinas === "Akademik") segments.akademik += 1;
+      if (dinas === "Administrasi") segments.administrasi += 1;
+      if (dinas === "Kastrad") segments.kastrad += 1;
+      if (dinas === "KWU") segments.kwu += 1;
+      if (dinas === "KOMINFO") segments.kominfo += 1;
+      if (dinas === "PMB") segments.pmb += 1;
+      if (dinas === "PSDM") segments.psdm += 1;
     });
 
     return segments;
